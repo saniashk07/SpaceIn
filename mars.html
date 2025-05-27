@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SpaceIn</title>
+    <link rel="stylesheet" href="./css/output.css" />
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Play:wght@400;700&display=swap");
+
+        body {
+            /* background-image: url("pEeUsp1.jpg");
+            background-size: cover; */
+            font-family: "Play", sans-serif;
+        }
+
+        #photo-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+
+        .photo-item {
+            text-align: center;
+        }
+
+        .photo-item img {
+            margin-top: 30px;
+            margin-left: 20px;
+            width: 300px;
+            height: 300px;
+            object-fit: cover;
+        }
+
+        .tell {
+            color: rgb(92, 40, 141);
+            font-weight: bold;
+        }
+
+        nav {
+            background-color: rgb(90, 35, 143);
+            color: white;
+            display: flex;
+        }
+
+        li:hover {
+            color: black;
+            text-decoration: underline;
+        }
+
+        .mars {
+            text-decoration: underline;
+        }
+
+        .logo {
+            font-size: x-large;
+            align-items: center;
+            font-weight: bolder;
+            padding-left: 20px;
+            padding-right: 40px;
+        }
+        .video-container {
+            width: 100%; /* Full width */
+            max-width: 1000px; /* Limit video width */
+            margin: 0 auto; /* Center align */
+            position: relative;
+
+        }
+
+        .video-container video {
+            width: 100%;
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="space-x-12 p-4 text-xl">
+        <a href="index.html" class="logo">Spacing In</a> <a href="index.html">
+            <li class="home list-none">Home</li>
+        </a>
+        <a href="mars.html">
+            <li class="mars list-none">Mars</li>
+        </a>
+        <a href="APOD.html">
+            <li class="apod list-none">APOD</li>
+        </a>
+       
+        <a href="About.html">
+            <li class="abt list-none">About Us</li>
+        </a>
+        <a href="contact.html">
+            <li class="contact list-none">Contact Us</li>
+        </a>
+    </nav>
+    <br />
+    <main>
+        <!-- Video section -->
+        <div class="video-container">
+            <video autoplay loop muted>
+                <source src="mars.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+
+        <div>
+            <BR><BR><BR>
+            <h1 class="tell text-white text-6xl text-center">Mars Rover Images</h1>
+            <div id="photo-container" class="p-4"></div>
+        </div>
+
+    </main>
+    <script>
+        async function getMarsRoverPhotos() {
+            const apiKey = "seQaJPkNsRlW5vh0c9frb7SDgq2Yc3mt2DLZthk9";
+            const roverName = "curiosity";
+            const sol = 3000;
+
+            try {
+                const response = await fetch(
+                    `https://api.nasa.gov/mars-photos/api/v1/rovers/${roverName}/photos?sol=${sol}&api_key=${apiKey}`
+                );
+                const data = await response.json();
+
+                const photoContainer = document.getElementById("photo-container");
+                if (data.photos.length > 0) {
+                    const limitedPhotos = data.photos.slice(0, 15);
+                    limitedPhotos.forEach((photo) => {
+                        const photoItem = document.createElement("div");
+                        photoItem.classList.add("photo-item");
+
+                        const img = document.createElement("img");
+                        img.src = photo.img_src;
+                        img.alt = `Mars Rover Photo - Sol ${sol}`;
+                        img.classList.add("rounded-md", "shadow-md");
+                        photoItem.appendChild(img);
+
+                        const dateElement = document.createElement("p");
+                        dateElement.textContent = `Date: ${photo.earth_date}`;
+                        dateElement.classList.add(
+                            "text-sm",
+                            "text-black",
+                            "font-sans",
+                            "font-bold",
+                            "mt-2"
+                        );
+                        photoItem.appendChild(dateElement);
+
+                        photoContainer.appendChild(photoItem);
+                    });
+                } else {
+                    photoContainer.innerHTML = "No photos found for the specified sol.";
+                }
+            } catch (error) {
+                console.error("Error fetching data:", error);
+            }
+        }
+
+        getMarsRoverPhotos();
+    </script>
+</body>
+
+</html>

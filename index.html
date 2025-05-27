@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SpaceIn</title>
+    <link rel="stylesheet" href="./css/output.css" />
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Play:wght@400;700&display=swap");
+
+        body {
+            background-image: url("astronaut-floating-in-space.jpg");
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-size: 1600px 800px;
+            font-family: "Play", sans-serif;
+        }
+
+        .well {
+            color: rgb(92, 40, 141);
+        }
+
+        .btn {
+            padding-left: 10px;
+            padding-right: 10px;
+            border-radius: 5px;
+            padding-top: 4px;
+            padding-bottom: 4px;
+            color: white;
+            background-color: blueviolet;
+        }
+
+        .btn:hover {
+            background-color: white;
+            color: blueviolet;
+            font-weight: bold;
+        }
+
+        .con {
+            /* min-height: 800px;
+            margin-top: 40px; */
+            margin-left: 40px;
+            box-sizing: border-box;
+        }
+
+        nav {
+            background-color: rgb(90, 35, 143);
+            color: white;
+            display: flex;
+        }
+
+        li:hover {
+            color: black;
+            text-decoration: underline;
+        }
+
+        .home {
+            text-decoration: underline;
+        }
+
+        .logo {
+            font-size: x-large;
+            align-items: center;
+            font-weight: bolder;
+            padding-left: 20px;
+            padding-right: 40px;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="space-x-12 p-4 text-xl">
+        <a href="index.html" class="logo">Spacing In</a> <a href="index.html">
+            <li class="home list-none">Home</li>
+        </a>
+        <a href="mars.html">
+            <li class="mars list-none">Mars</li>
+        </a>
+        <a href="APOD.html">
+            <li class="apod list-none">APOD</li>
+        </a>
+        
+        <a href="About.html">
+            <li class="abt list-none">About Us</li>
+        </a>
+        <a href="contact.html">
+            <li class="contact list-none">Contact Us</li>
+        </a>
+    </nav>
+    <br />
+
+    <div class="con">
+        <h1 class="well text-6xl font-bold mt-7 text-purple-950">
+            Welcome to Spacing In
+        </h1>
+        <br />
+        <p class="text-white text-xl font-thin">
+            Here you will find great pictures and 3D models of the solar system, but
+            first:<br />
+            <b>Check out NASA's picture of the day down below!</b>
+        </p>
+        <br />
+        <a href="APOD.html" class="inline-block">
+            <button class="btn">Picture Of The Day</button>
+        </a>
+    </div>
+</body>
+
+</html>

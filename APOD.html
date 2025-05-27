@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Astronomy Picture of the Day</title>
+    <link rel="stylesheet" href="./css/output.css" />
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Play:wght@400;700&display=swap");
+
+        body {
+            font-family: "Play", sans-serif;
+        }
+
+        nav {
+            background-color: rgb(90, 35, 143);
+            color: white;
+            display: flex;
+        }
+
+        li:hover {
+            color: black;
+            text-decoration: underline;
+        }
+
+        .apod {
+            text-decoration: underline;
+        }
+
+        .logo {
+            font-size: x-large;
+            align-items: center;
+            font-weight: bolder;
+            padding-left: 20px;
+            padding-right: 40px;
+        }
+
+        .media {
+            max-width: 45%;
+            margin-right: 10px;
+            margin-left: 7px;
+            margin-top: 7px;
+            display: none;
+        }
+
+        #apod_video {
+            width: 100%;
+            height: auto;
+            aspect-ratio: 16/9;
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="space-x-12 p-4 text-xl">
+        <a href="index.html" class="logo">Spacing In</a><a href="index.html">
+            <li class="home list-none">Home</li>
+        </a>
+        <a href="mars.html">
+            <li class="mars list-none">Mars</li>
+        </a>
+        <a href="APOD.html">
+            <li class="apod list-none">APOD</li>
+        </a>
+        <a href="About.html">
+            <li class="abt list-none">About Us</li>
+        </a>
+        <a href="contact.html">
+            <li class="contact list-none">Contact Us</li>
+        </a>
+    </nav>
+    <br />
+
+    <h2 class="text-center font-bold text-6xl text-[#4a2075] mt-7">
+        Astronomy Picture of the Day
+    </h2>
+    <input class="ml-10 border-2 border-spacing-px border-black text-black font-sans font-semibold" type="date"
+        id="date" onchange="fetchAPOD();" />
+    <h3 class="img-title text-black ml-7 mt-7 font-mono text-xl" id="title"></h3>
+    <em class="date text-black ml-7" id="pic_date"></em>
+    <div class="flex">
+        <img id="apod_pic" class="media" alt="APOD image" />
+        <iframe id="apod_video" class="media" frameborder="0" allowfullscreen></iframe>
+        <div class="bg-[#2f2d2de6] rounded-md">
+            <h3 class="img-title text-black font-mono text-xl" id="title"></h3>
+            <em class="date text-black" id="pic_date"></em>
+            <p class="caption text-black font-sans font-semibold mr-16 ml-10 mt-20" id="caption"></p>
+        </div>
+    </div>
+
+    <script>
+        async function fetchAPOD() {
+            const apiKey = "seQaJPkNsRlW5vh0c9frb7SDgq2Yc3mt2DLZthk9";
+            const date = document.getElementById("date").value;
+            const url = `https://api.nasa.gov/planetary/apod?api_key=${apiKey}&date=${date}`;
+
+            try {
+                const response = await fetch(url);
+                const data = await response.json();
+
+                document.getElementById("title").textContent = data.title;
+                document.getElementById("pic_date").textContent = data.date;
+                document.getElementById("caption").textContent = data.explanation;
+
+                const apodPic = document.getElementById("apod_pic");
+                const apodVideo = document.getElementById("apod_video");
+
+                if (data.media_type === "image") {
+                    apodPic.src = data.url;
+                    apodPic.style.display = "block";
+                    apodVideo.style.display = "none";
+                } else if (data.media_type === "video") {
+                    apodVideo.src = data.url;
+                    apodVideo.style.display = "block";
+                    apodPic.style.display = "none";
+                }
+            } catch (error) {
+                console.error("Error fetching APOD:", error);
+            }
+        }
+        fetchAPOD();
+    </script>
+</body>
+
+</html>
